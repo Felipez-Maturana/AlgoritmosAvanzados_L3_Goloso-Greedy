@@ -17,49 +17,6 @@ lista * appendLista(lista L1, lista * ListaEnlazada, int * CantidadElementos)
 	
 }
 
-
-
-
-
-
-
-
-
-/*
-int pivot(int *unarray, int izq, int der)
-{
-    int i;
-    int pivote, valor_pivote;
-    int aux;
-
-    pivote = izq;
-    valor_pivote = unarray[pivote];
-    for (i=izq+1; i<=der; i++){
-        if (unarray[i] < valor_pivote){
-                pivote++;
-                aux=unarray[i];
-                unarray[i]=unarray[pivote];
-                unarray[pivote]=aux;
-
-        }
-    }
-    aux=unarray[izq];
-    unarray[izq]=unarray[pivote];
-    unarray[pivote]=aux;
-    return pivote;
-}
-*/
-/*
-void Quicksort(int *unarray, int izq, int der)
-{
-     int pivote;
-     if(izq < der){
-        pivote=pivot(unarray, izq, der);
-        Quicksort(unarray, izq, pivote-1);
-        Quicksort(unarray, pivote+1, der);
-     }
-}
-*/
 int pivot(publicidad *p1, int izq, int der)
 {
     int i;
@@ -82,6 +39,7 @@ int pivot(publicidad *p1, int izq, int der)
     p1[pivote]=aux;
     return pivote;
 }
+//O(n) = nlogn
 void Quicksort(publicidad *p1, int izq, int der)
 {
      int pivote;
@@ -127,7 +85,7 @@ resultadoPag * insertarPublicidad(publicidad * publicidades, int numPub, pagina 
 	int anuncios=0;
 	for(i=0;i<numPag;i++)
 	{	
-		pagResultado[i].identificadores = calloc(sizeof(char *),5);
+		pagResultado[i].identificadores = calloc(sizeof(char *),10);
 
 	}
 	
@@ -145,15 +103,10 @@ resultadoPag * insertarPublicidad(publicidad * publicidades, int numPub, pagina 
 		while(pub<numPub)
 		{
 				
-//			printf("largo==%d<%d==\n",publicidades[pub].largo, largoActual);
-//			printf("ancho==%d<%d==\n",publicidades[pub].ancho, paginas[pag].ancho);
-//			printf("identificador==%s\n",publicidades[pub].identificador);
-			
-			
+
 			if(usados.arreglo[pub].elemento == 0 && publicidades[pub].largo <= largoActual && publicidades[pub].ancho <= paginas[pag].ancho)
 			{
 				anuncios+=1;
-//				printf("INSERTANDO LA PUBLICIDAD %s EN LA PAGINA %d\n",publicidades[pub].identificador,paginas[pag].numeropag);
 				usados.arreglo[pub].elemento = 1;
 				largoActual -= publicidades[pub].largo;
 
@@ -174,9 +127,7 @@ resultadoPag * insertarPublicidad(publicidad * publicidades, int numPub, pagina 
 			
 			if(pub >= numPub)
 			{
-//				printf("NUEVA PAGINA\n");
 				pag +=1;
-				//pagResultado = realloc(pagResultado,sizeof(resultadoPag)*pag);
 				
 			}
 			 
@@ -286,7 +237,7 @@ void mostrarResultado(int numpag,resultadoPag rp1,FILE * Salida)
 
 void mostrarPublicidad(publicidad p1)
 {
-	printf("Identificador: %s, Largo: %d, Ancho %d, Area %d, Valor: %d.\n",p1.identificador,p1.ancho,p1.largo,p1.area,p1.valor);
+	printf("Identificador: %s, Ancho: %d, Largo: %d, Area %d, Valor: %d.\n",p1.identificador,p1.ancho,p1.largo,p1.area,p1.valor);
 }
 
 void mostrarPagina(pagina pag1)
@@ -435,6 +386,13 @@ void LeerArchivo()
 	fclose(Entrada);
 	
 	Quicksort(Ps,0,pub-1);
+
+
+	int z=0;
+	for(z=0;z<pub;z++)
+	{
+		mostrarPublicidad(Ps[z]);
+	}
 
 
 	
